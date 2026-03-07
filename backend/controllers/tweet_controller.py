@@ -4,9 +4,9 @@ import requests
 from flask import jsonify
 from dotenv import load_dotenv
 
-# Load environment variables from the project root
-env_path = os.path.join(os.path.dirname(__file__), '../../.env')
-load_dotenv(env_path)
+# Load environment variables from .env file (for local development)
+# On Render, environment variables are set directly in the dashboard
+load_dotenv()
 
 from utils.prompt_helper import PromptHelper
 from utils.tweet_parser import TweetParser
