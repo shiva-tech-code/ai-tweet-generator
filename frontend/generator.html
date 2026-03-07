@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tweet Generator | TweetForge AI</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="generator-page">
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="nav-brand">
+                <i class="fas fa-bolt"></i>
+                <span>TweetForge<span class="ai-badge">AI</span></span>
+            </a>
+            <div class="nav-links">
+                <a href="index.html" class="nav-link">
+                    <i class="fas fa-home"></i> Home
+                </a>
+                <a href="index.html#features" class="nav-link">Features</a>
+                <a href="index.html#about" class="nav-link">About</a>
+            </div>
+            <div class="nav-status">
+                <span class="status-indicator online"></span>
+                <span>API Connected</span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Generator Page Header -->
+    <section class="generator-header">
+        <div class="generator-header-content">
+            <a href="index.html" class="back-link">
+                <i class="fas fa-arrow-left"></i>
+                Back to Home
+            </a>
+            <h1><i class="fas fa-magic"></i> Tweet Generator</h1>
+            <p>Create AI-powered, on-brand tweets in seconds</p>
+        </div>
+    </section>
+
+    <!-- Main Generator Section -->
+    <section class="generator-section generator-full">
+        <div class="generator-container">
+            <!-- Left Panel - Form -->
+            <div class="form-panel">
+                <div class="panel-header">
+                    <div class="panel-icon">
+                        <i class="fas fa-edit"></i>
+                    </div>
+                    <div>
+                        <h2>Brand Information</h2>
+                        <p>Enter your brand details to generate tailored tweets</p>
+                    </div>
+                </div>
+                
+                <form id="brandForm" class="brand-form">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="brand_name">
+                                <i class="fas fa-building"></i>
+                                Brand Name
+                                <span class="optional-tag">Optional</span>
+                            </label>
+                            <input type="text" id="brand_name" name="brand_name" 
+                                   placeholder="e.g., Nike, Apple, Starbucks">
+                        </div>
+                        <div class="form-group">
+                            <label for="industry">
+                                <i class="fas fa-industry"></i>
+                                Industry / Category
+                                <span class="optional-tag">Optional</span>
+                            </label>
+                            <input type="text" id="industry" name="industry" 
+                                   placeholder="e.g., Technology, Fashion, Food & Beverage">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="campaign_objective">
+                            <i class="fas fa-crosshairs"></i>
+                            Campaign Objective <span class="required">*</span>
+                        </label>
+                        <select id="campaign_objective" name="campaign_objective" required>
+                            <option value="">Select an objective</option>
+                            <option value="Engagement - Build community interaction">Engagement</option>
+                            <option value="Promotion - Drive sales and conversions">Promotion</option>
+                            <option value="Brand Awareness - Increase visibility">Brand Awareness</option>
+                            <option value="Product Launch - Introduce new products">Product Launch</option>
+                            <option value="Customer Education - Share valuable information">Customer Education</option>
+                            <option value="Event Promotion - Drive event attendance">Event Promotion</option>
+                            <option value="Seasonal Campaign - Holiday or seasonal content">Seasonal Campaign</option>
+                            <option value="Community Building - Foster brand loyalty">Community Building</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="product_description">
+                            <i class="fas fa-box"></i>
+                            About the Brand's Products / Services <span class="required">*</span>
+                        </label>
+                        <textarea id="product_description" name="product_description" 
+                                  placeholder="Describe your product or service in detail. Include key features, benefits, unique selling points, and what makes your brand special."
+                                  rows="4" required></textarea>
+                        <span class="field-hint">This helps AI understand what to promote in the tweets</span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="target_audience">
+                            <i class="fas fa-users"></i>
+                            Target Audience
+                        </label>
+                        <input type="text" id="target_audience" name="target_audience" 
+                               placeholder="e.g., Young professionals aged 25-35, Tech enthusiasts, Fitness lovers">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="additional_notes">
+                            <i class="fas fa-sticky-note"></i>
+                            Brand Voice & Personality
+                        </label>
+                        <textarea id="additional_notes" name="additional_notes" 
+                                  placeholder="Describe your brand's personality and tone:
+• Witty and humorous? Premium and sophisticated?
+• Bold and edgy? Friendly and approachable?
+• Informative and educational? Minimal and clean?"
+                                  rows="3"></textarea>
+                        <span class="field-hint">Examples: witty, premium, humorous, informative, bold, minimal</span>
+                    </div>
+
+                    <button type="submit" class="generate-btn" id="submitBtn">
+                        <span class="btn-content">
+                            <i class="fas fa-magic"></i>
+                            <span>Generate 10 Tweets</span>
+                        </span>
+                        <span class="btn-loader" style="display: none;">
+                            <i class="fas fa-spinner fa-spin"></i>
+                            <span>Analyzing & Generating...</span>
+                        </span>
+                    </button>
+                </form>
+            </div>
+
+            <!-- Right Panel - Results -->
+            <div class="results-panel">
+                <!-- Default State -->
+                <div id="defaultState" class="default-state">
+                    <div class="empty-state">
+                        <div class="empty-icon">
+                            <i class="fab fa-twitter"></i>
+                        </div>
+                        <h3>Ready to Generate</h3>
+                        <p>Fill in your brand information and click "Generate 10 Tweets" to create AI-powered social media content.</p>
+                        <div class="tweet-mix-preview">
+                            <h4>Tweet Mix You'll Receive:</h4>
+                            <div class="mix-items">
+                                <span class="mix-item"><i class="fas fa-comments"></i> Engaging / Conversational</span>
+                                <span class="mix-item"><i class="fas fa-bullhorn"></i> Promotional</span>
+                                <span class="mix-item"><i class="fas fa-laugh"></i> Witty / Meme-style</span>
+                                <span class="mix-item"><i class="fas fa-lightbulb"></i> Informative / Value-driven</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Loading State -->
+                <div id="loadingState" class="loading-state" style="display: none;">
+                    <div class="loading-content">
+                        <div class="loading-spinner">
+                            <div class="spinner-ring"></div>
+                            <div class="spinner-ring"></div>
+                            <div class="spinner-ring"></div>
+                        </div>
+                        <h3>Analyzing Brand Voice</h3>
+                        <p>Our AI is crafting the perfect tweets for your brand...</p>
+                        <div class="loading-steps">
+                            <div class="step active" id="step1">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Analyzing brand personality</span>
+                            </div>
+                            <div class="step" id="step2">
+                                <i class="fas fa-circle"></i>
+                                <span>Identifying tone & audience</span>
+                            </div>
+                            <div class="step" id="step3">
+                                <i class="fas fa-circle"></i>
+                                <span>Generating 10 unique tweets</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Results State -->
+                <div id="resultsState" class="results-state" style="display: none;">
+                    <div class="results-header">
+                        <div class="results-title">
+                            <i class="fas fa-check-circle"></i>
+                            <div>
+                                <h3>Generation Complete!</h3>
+                                <p id="tweetCount">10 tweets generated</p>
+                            </div>
+                        </div>
+                        <div class="results-actions">
+                            <button class="action-btn secondary" id="copyAllBtn" title="Copy all tweets">
+                                <i class="fas fa-copy"></i>
+                            </button>
+                            <button class="action-btn secondary" id="downloadBtn" title="Download as JSON">
+                                <i class="fas fa-download"></i>
+                            </button>
+                            <button class="action-btn primary" id="resetBtn">
+                                <i class="fas fa-redo"></i>
+                                New Generation
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Brand Voice Summary -->
+                    <div class="brand-voice-card">
+                        <div class="voice-header">
+                            <i class="fas fa-microphone-alt"></i>
+                            <h4>Brand Voice Summary</h4>
+                        </div>
+                        <div class="voice-grid">
+                            <div class="voice-item">
+                                <span class="voice-label">Tone</span>
+                                <span class="voice-value" id="tone">-</span>
+                            </div>
+                            <div class="voice-item">
+                                <span class="voice-label">Target Audience</span>
+                                <span class="voice-value" id="audience">-</span>
+                            </div>
+                            <div class="voice-item">
+                                <span class="voice-label">Communication Style</span>
+                                <span class="voice-value" id="style">-</span>
+                            </div>
+                            <div class="voice-item">
+                                <span class="voice-label">Key Themes</span>
+                                <span class="voice-value" id="themes">-</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Generated Tweets -->
+                    <div class="tweets-list" id="tweetsContainer">
+                        <!-- Tweets will be inserted here dynamically -->
+                    </div>
+                </div>
+
+                <!-- Error State -->
+                <div id="errorState" class="error-state" style="display: none;">
+                    <div class="error-content">
+                        <div class="error-icon">
+                            <i class="fas fa-exclamation-triangle"></i>
+                        </div>
+                        <h3>Generation Failed</h3>
+                        <p id="errorMessage">An unexpected error occurred. Please try again.</p>
+                        <button class="retry-btn" id="retryBtn">
+                            <i class="fas fa-redo"></i>
+                            Try Again
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer compact-footer">
+        <div class="footer-container">
+            <div class="footer-brand">
+                <div class="brand-logo">
+                    <i class="fas fa-bolt"></i>
+                    <span>TweetForge<span class="ai-badge">AI</span></span>
+                </div>
+                <p>AI-Powered Tweet Generation</p>
+            </div>
+            <p class="copyright">© 2026 TweetForge AI. Built for AI Internship Assignment.</p>
+        </div>
+    </footer>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="toast">
+        <i class="fas fa-check-circle"></i>
+        <span id="toastMessage">Success!</span>
+    </div>
+
+    <script src="js/main.js"></script>
+</body>
+</html>
