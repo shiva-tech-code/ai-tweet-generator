@@ -15,8 +15,8 @@ class TweetController:
     def __init__(self):
         self.prompt_helper = PromptHelper()
         self.parser = TweetParser()
-        self.api_key = os.getenv('OPENROUTER_API_KEY')
-        self.model = os.getenv('OPENROUTER_MODEL', 'openai/gpt-4-turbo')
+        self.api_key = os.getenv('GROQ_API_KEY')
+        self.model = os.getenv('GROQ_MODEL', 'llama-3.3-70b-versatile')
         self.campaigns = {}
         self.campaign_counter = 0
         print("✅ TweetController initialized (no database)")
@@ -31,7 +31,7 @@ class TweetController:
             system_prompt = self.prompt_helper.get_system_prompt()
             user_prompt = self.prompt_helper.create_user_prompt(**data)
 
-            response = self._call_openrouter_api(system_prompt, user_prompt)
+            response = self._call_groq_api(system_prompt, user_prompt)
             
             if not response or 'error' in response:
                 error_msg = response.get('error', 'API error') if response else 'API call failed'
@@ -66,19 +66,17 @@ class TweetController:
             print(f"Error in generate_tweets: {e}")
             return jsonify({"success": False, "error": str(e)}), 500
 
-    def _call_openrouter_api(self, system_prompt, user_prompt):
+    def _call_groq_api(self, system_prompt, user_prompt):
         try:
             if not self.api_key:
                 print("No API key found!")
                 return {"error": "API key not configured"}
             
-            print(f"Calling OpenRouter API with model: {self.model}")
+            print(f"Calling Groq API with model: {self.model}")
             
             headers = {
                 "Authorization": f"Bearer {self.api_key}",
-                "Content-Type": "application/json",
-                "HTTP-Referer": "http://localhost:8888",
-                "X-Title": "AI Tweet Generator"
+                "Content-Type": "application/json"
             }
 
             payload = {
@@ -88,11 +86,11 @@ class TweetController:
                     {"role": "user", "content": user_prompt}
                 ],
                 "temperature": 0.7,
-                "max_tokens": 150
+                "max_tokens": 1024
             }
 
             response = requests.post(
-                "https://openrouter.ai/api/v1/chat/completions",
+                "https://api.groq.com/openai/v1/chat/completions",
                 headers=headers,
                 json=payload,
                 timeout=60
